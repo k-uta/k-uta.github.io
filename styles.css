@@ -1,0 +1,103 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa; /* 非常に薄いグレー */
+    color: #555; /* 薄めのグレー */
+}
+header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('image/kuching.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5; /* 背景画像のみに透過を適用 */
+    z-index: -1; /* 背景として配置 */
+}
+
+header img {
+    position: relative;
+    z-index: 1; /* 写真を前面に */
+}
+header button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    padding: 10px 20px;
+    background-color: white;
+    color: #cfe8e8; /* 淡いパステルグリーン */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+main {
+    padding: 20px;
+}
+section {
+    background: #ffffff; /* 白 */
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05); /* 影も非常に薄くする */
+}
+h1, h2 {
+    font-family: 'Georgia', serif;
+    color: #6d6d6d; /* 薄めのグレー */
+}
+h1 {
+    font-size: 2.5em;
+}
+h2 {
+    font-size: 1.5em;
+    border-bottom: 2px solid #f1d1d0; /* 非常に淡いピンク */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+ul li {
+    background: #f9f9f9; /* 非常に淡いグレー */
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border-left: 5px solid #f1d1d0; /* 非常に淡いピンク */
+}
+footer {
+    background-color: #cfe8e8; /* 淡いパステルグリーン */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f1d1d0; /* 非常に淡いピンク */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+    font-size: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+#back-to-top:hover {
+    background-color: #e8f1d4; /* 淡いパステルイエローグリーン */
+}
