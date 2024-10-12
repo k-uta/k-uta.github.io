@@ -151,3 +151,12 @@ document.addEventListener("DOMContentLoaded", function() {
     var emailElement = document.getElementById("email");
     emailElement.innerHTML = '<a href="mailto:' + email + '">' + email + '</a>';
 });
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});

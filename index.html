@@ -25,7 +25,59 @@
 </head>
 <body>
 
+<nav>
 <header style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 20px;">
+    <!-- Navigation bar -->
+    <nav class="navbar is-link is-fixed-top">
+    <div class="navbar-brand">
+            <div class="navbar-burger burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </div>
+    </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="#affiliation">
+                    <span class="icon">
+                        <i class="fas fa-users"></i>
+                    </span>
+                    <span>所属</span>
+                </a>
+                    <a class="navbar-item" href="#education">
+                    <span class="icon">
+                        <i class="fas fa-school"></i>
+                    </span>
+                    <span>学歴</span>
+                </a>
+                <a class="navbar-item" href="#publications">
+                    <span class="icon">
+                        <i class="fas fa-book"></i>
+                    </span>
+                    <span>研究業績</span>
+                </a>
+                <a class="navbar-item" href="#awards">
+                    <span class="icon">
+                        <i class="fas fa-trophy"></i>
+                    </span>
+                    <span>受賞歴</span>
+                </a>
+                <a class="navbar-item" href="#vehicles">
+                    <span class="icon">
+                        <i class="fas fa-car"></i>
+                    </span>
+                    <span>所持車両</span>
+                </a>
+                <a class="navbar-item" href="#contact">
+                    <span class="icon">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span>お問い合わせ</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+  
     <div style="display: flex; align-items: center; margin-bottom: 10px;">
         <img src="img/profile.png" alt="プロフィール写真" style="width: 150px; height: 150px; border-radius: 50%; margin-right: 20px;">
         <h1 id="name" style="margin: 0;">河上 響 / Uta Kawakami</h1>
@@ -145,7 +197,7 @@
         </h2>
         <p>ご質問や連絡事項がある場合は、以下のメールアドレスにご連絡ください。</p>
         <p id="email"></p>
-    </section>
+
     
 </main>
 

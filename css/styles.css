@@ -63,19 +63,34 @@ header button {
 header button:hover {
     background-color: #00bfa5; /* ホバー時に緑色へ */
 }
+/* SNS icon container adjustments */
+.social-links img {
+    width: 40px; /* アイコンの幅を40pxに固定 */
+    height: 40px; /* アイコンの高さも40pxに固定 */
+    object-fit: contain; /* アイコンが枠内に収まるように */
+    display: block; /* 画像をブロック要素にして中央揃えしやすく */
+    margin: auto; /* 画像をコンテナ内で中央揃え */
+}
 
+/* SNSアイコンを囲むコンテナの調整 */
 .social-links a {
     display: inline-block;
+    width: 50px; /* コンテナの幅 */
+    height: 50px; /* コンテナの高さ */
     background-color: white; /* 背景を白に */
-    border-radius: 50%;
-    padding: 10px;
-    margin: 0 10px;
+    border-radius: 50%; /* 丸い背景 */
+    padding: 1px; /* 内側の余白 */
+    margin: 0 10px; /* アイコン間の隙間 */
     transition: transform 0.3s ease;
+    display: flex;
+    justify-content: center; /* アイコンを中央揃え */
+    align-items: center; /* 垂直方向にも中央揃え */
 }
 
 .social-links a:hover {
     transform: scale(1.1); /* ホバー時に少し拡大 */
 }
+
 
 main {
     padding: 20px;
@@ -131,4 +146,47 @@ footer {
 }
 #back-to-top:hover {
     background-color: #00bfa5;
+}
+/* Navigation bar styles with background image */
+.navbar {
+    background-size: cover; /* 画像を全体に表示 */
+    background-position: center; /* 画像の中央を表示 */
+    background-repeat: no-repeat; /* 画像の繰り返しを無効化 */
+    background-color: rgba(126, 126, 126, 0.8); /* 透過を適用 (青色に半透明) */
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* ナビゲーションバーの下に影を追加 */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+/* Adjust profile image positioning */
+header {
+    padding-top: 80px; /* ナビゲーションバーの高さを考慮して余白を追加 */
+    text-align: center;
+}
+
+/* Profile image adjustments */
+header img {
+    position: relative;
+    z-index: 1;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border: 5px solid #ffffff; /* 白い枠を追加 */
+    margin-top: 40px; /* ナビゲーションバーと重ならないように調整 */
+}
+
+.navbar .navbar-item {
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.navbar .navbar-item:hover {
+    background-color: rgba(53, 122, 189, 0.8); /* ホバー時も半透明を適用 */
+    border-radius: 5px;
 }
