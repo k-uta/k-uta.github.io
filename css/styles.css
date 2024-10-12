@@ -1,9 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/******************************************************************************
+ * @file    styles.css
+ * @auther  Uta Kawakami
+ * @date    13. Oct. 2024
+ * Copyright (c) 2024 Uta KAWAKAMI. All rights reserved.
+ ******************************************************************************/
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #fafafa; /* 非常に薄いグレー */
-    color: #555; /* 薄めのグレー */
+    background-color: #f7f7f7; /* 淡いグレー */
+    color: #333333; /* 濃いグレー */
 }
 header {
     position: relative;
@@ -30,38 +38,62 @@ header::before {
 
 header img {
     position: relative;
-    z-index: 1; /* 写真を前面に */
+    z-index: 1;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border: 5px solid #ffffff; /* 白い枠を追加 */
+}
+header h1 {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* テキストに影を追加して強調 */
 }
 header button {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    padding: 10px 20px;
-    background-color: white;
-    color: #cfe8e8; /* 淡いパステルグリーン */
+    margin-top: 20px;
+    padding: 10px 30px;
+    background-color: #4a90e2; /* 明るめのブルー */
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
+
+header button:hover {
+    background-color: #00bfa5; /* ホバー時に緑色へ */
+}
+
+.social-links a {
+    display: inline-block;
+    background-color: white; /* 背景を白に */
+    border-radius: 50%;
+    padding: 10px;
+    margin: 0 10px;
+    transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: scale(1.1); /* ホバー時に少し拡大 */
+}
+
 main {
     padding: 20px;
 }
 section {
-    background: #ffffff; /* 白 */
+    background: #ffffff;
     margin: 20px 0;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05); /* 影も非常に薄くする */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* より大きめの影を追加 */
+    transition: transform 0.3s ease;
 }
 h1, h2 {
-    font-family: 'Georgia', serif;
-    color: #6d6d6d; /* 薄めのグレー */
-}
-h1 {
-    font-size: 2.5em;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
 }
 h2 {
-    font-size: 1.5em;
+    font-size: 1.8em;
     border-bottom: 2px solid #f1d1d0; /* 非常に淡いピンク */
     padding-bottom: 10px;
     margin-bottom: 20px;
@@ -71,33 +103,32 @@ ul {
     padding: 0;
 }
 ul li {
-    background: #f9f9f9; /* 非常に淡いグレー */
+    background: #f9f9f9;
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
     border-left: 5px solid #f1d1d0; /* 非常に淡いピンク */
 }
 footer {
-    background-color: #cfe8e8; /* 淡いパステルグリーン */
+    background-color: #333333; /* フッターの色を濃く */
     color: white;
     text-align: center;
-    padding: 10px 0;
-    margin-top: 20px;
+    padding: 20px;
 }
 #back-to-top {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #f1d1d0; /* 非常に淡いピンク */
+    background-color: #4a90e2; /* ボタンの色を変更 */
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 15px 20px;
+    border-radius: 50px;
     cursor: pointer;
     display: none;
-    font-size: 16px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    font-size: 18px;
+    transition: background-color 0.3s ease;
 }
 #back-to-top:hover {
-    background-color: #e8f1d4; /* 淡いパステルイエローグリーン */
+    background-color: #00bfa5;
 }
