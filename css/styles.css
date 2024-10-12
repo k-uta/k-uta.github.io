@@ -21,7 +21,7 @@ header::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('image/kuching.jpg');
+    background-image: url('../img/kuching.jpg');
     background-size: cover;
     background-position: center;
     opacity: 0.5; /* 背景画像のみに透過を適用 */
