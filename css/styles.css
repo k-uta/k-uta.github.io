@@ -132,7 +132,7 @@ footer {
 }
 #back-to-top {
     position: fixed;
-    bottom: 20px;
+    bottom: 110px; /* フッターから距離を取るためにボタンの位置を40pxに変更 */
     right: 20px;
     background-color: #4a90e2; /* ボタンの色を変更 */
     color: white;
