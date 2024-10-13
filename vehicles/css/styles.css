@@ -1,0 +1,50 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+.vehicle-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.vehicle {
+    margin-bottom: 40px;
+}
+.vehicle h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+.vehicle ul {
+    list-style: none;
+    padding: 0;
+}
+.vehicle ul li {
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #f1f1f1;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+.vehicle ul li img {
+    width: 150px; /* 画像の幅 */
+    height: auto; /* 高さは自動調整 */
+    margin-right: 20px;
+    border-radius: 10px;
+}
+.back-home {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.back-home:hover {
+    background-color: #357ABD;
+}
