@@ -12,7 +12,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>プロフィールページ</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css"
+    media="print" onload="this.media='all'"
+    >
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-16FJF3S1EK"></script>
     <script>
@@ -21,6 +23,7 @@
         gtag('js', new Date());
         gtag('config', 'G-16FJF3S1EK');
     </script>
+    <script src="js/script.js" defer></script>
 </head>
 <body>
 
@@ -78,8 +81,16 @@
     </nav>
   
     <div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <img src="img/profile.png" alt="プロフィール写真" style="width: 150px; height: 150px; border-radius: 50%; margin-right: 20px;">
-        <h1 id="name" style="margin: 0;">河上 響 / Uta Kawakami</h1>
+        <img src="img/profile.png" 
+            alt="プロフィール写真" 
+            style="width: 150px; height: 150px; border-radius: 50%; margin-right: 20px;"
+            loading="lazy" 
+            decoding="async"
+            >
+        <h1 id="name" 
+        style="margin: 0;">
+        河上 響 / Uta Kawakami
+    </h1>
     </div>
     <!-- <button onclick="toggleLanguage()">English</button> -->
     <!-- SNS -->
@@ -184,8 +195,8 @@
         </h2>
         <p>ご質問や連絡事項がある場合は、以下のメールアドレスにご連絡ください。</p>
         <p id="email"></p>
+    </section>
 
-    
 </main>
 
 <!-- トップに戻るボタン -->
@@ -195,8 +206,6 @@
     <p>&copy; 2024 河上 響 / Uta Kawakami. All rights reserved.</p>
     <p>This site uses Google Analytics, a service provided by Google, to analyze and improve the site. This service uses cookies to collect traffic data. Traffic data is collected anonymously and does not personally identify you.</a>.</p>
 </footer>
-
-<script src="js/script.js"></script>
 
 </body>
 </html>
