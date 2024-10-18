@@ -8,6 +8,7 @@
  -->
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,193 +18,226 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-16FJF3S1EK"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-16FJF3S1EK');
     </script>
 </head>
+
 <body>
 
-<nav>
-<header style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 20px;">
-    <!-- Navigation bar -->
-    <nav class="navbar is-link is-fixed-top">
-    <div class="navbar-brand">
-            <div class="navbar-burger burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </div>
-    </div>
-        <div id="navMenu" class="navbar-menu">
-            <div class="navbar-end">
-                <a class="navbar-item" href="#affiliation">
-                    <span class="icon">
-                        <i class="fas fa-users"></i>
-                    </span>
-                    <span>所属</span>
-                </a>
-                    <a class="navbar-item" href="#education">
-                    <span class="icon">
-                        <i class="fas fa-school"></i>
-                    </span>
-                    <span>学歴</span>
-                </a>
-                <a class="navbar-item" href="#publications">
-                    <span class="icon">
-                        <i class="fas fa-book"></i>
-                    </span>
-                    <span>研究業績</span>
-                </a>
-                <a class="navbar-item" href="#awards">
-                    <span class="icon">
-                        <i class="fas fa-trophy"></i>
-                    </span>
-                    <span>受賞歴</span>
-                </a>
-                <a class="navbar-item" href="vehicles/index.html" target="_blank">
-                    <span>所有車両</span>
-                </a>
-                <!-- <a class="navbar-item" href="blog/index.html" target="_blank">
+    <nav>
+        <header style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 20px;">
+            <!-- Navigation bar -->
+            <nav class="navbar is-link is-fixed-top">
+                <div class="navbar-brand">
+                    <div class="navbar-burger burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div id="navMenu" class="navbar-menu">
+                    <div class="navbar-end">
+                        <a class="navbar-item" href="#affiliation">
+                            <span class="icon">
+                                <i class="fas fa-users"></i>
+                            </span>
+                            <span>所属</span>
+                        </a>
+                        <a class="navbar-item" href="#education">
+                            <span class="icon">
+                                <i class="fas fa-school"></i>
+                            </span>
+                            <span>学歴</span>
+                        </a>
+                        <a class="navbar-item" href="#publications">
+                            <span class="icon">
+                                <i class="fas fa-book"></i>
+                            </span>
+                            <span>研究業績</span>
+                        </a>
+                        <a class="navbar-item" href="#awards">
+                            <span class="icon">
+                                <i class="fas fa-trophy"></i>
+                            </span>
+                            <span>受賞歴</span>
+                        </a>
+                        <a class="navbar-item" href="vehicles/index.html" target="_blank">
+                            <span>所有車両</span>
+                        </a>
+                        <!-- <a class="navbar-item" href="blog/index.html" target="_blank">
                     <span>ブログ</span>
                 </a> -->
-                <a class="navbar-item" href="#contact">
-                    <span class="icon">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    <span>お問い合わせ</span>
+                        <a class="navbar-item" href="#contact">
+                            <span class="icon">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            <span>お問い合わせ</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <img src="img/profile.png" alt="プロフィール写真"
+                    style="width: 150px; height: 150px; border-radius: 50%; margin-right: 20px;">
+                <h1 id="name" style="margin: 0;">河上 響 / Uta Kawakami</h1>
+            </div>
+            <!-- <button onclick="toggleLanguage()">English</button> -->
+            <!-- SNS -->
+            <div class="social-links" style="display: flex; gap: 15px; margin-top: 10px;">
+                <!-- GitHub -->
+                <a href="https://github.com/k-uta" target="_blank">
+                    <img src="img/github.png" alt="GitHub" style="width: 30px; height: 30px;">
+                </a>
+                <!-- X (旧Twitter) -->
+                <a href="https://x.com/tau_again" target="_blank">
+                    <img src="img/x.png" alt="X" style="width: 30px; height: 30px;">
+                </a>
+                <!-- codeium -->
+                <a href="https://codeium.com/profile/profanely-competent-woodpecker-85363" target="_blank">
+                    <img src="img/codeium.png" alt="Codeium" style="width: 30px; height: 30px;">
+                </a>
+                <!-- ORCID -->
+                <a href="https://orcid.org/0009-0002-8631-8388" target="_blank">
+                    <img src="img/orcid.png" alt="ORCID" style="width: 30px; height: 30px;">
                 </a>
             </div>
-        </div>
-    </nav>
-  
-    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <img src="img/profile.png" alt="プロフィール写真" style="width: 150px; height: 150px; border-radius: 50%; margin-right: 20px;">
-        <h1 id="name" style="margin: 0;">河上 響 / Uta Kawakami</h1>
-    </div>
-    <!-- <button onclick="toggleLanguage()">English</button> -->
-    <!-- SNS -->
-    <div class="social-links" style="display: flex; gap: 15px; margin-top: 10px;">
-        <!-- GitHub -->
-        <a href="https://github.com/k-uta" target="_blank">
-            <img src="img/github.png" alt="GitHub" style="width: 30px; height: 30px;">
-        </a>
-        <!-- X (旧Twitter) -->
-        <a href="https://x.com/tau_again" target="_blank">
-            <img src="img/x.png" alt="X" style="width: 30px; height: 30px;">
-        </a>
-        <a href="https://orcid.org/0009-0002-8631-8388" target="_blank">
-            <img src="img/orcid.png" alt="ORCID" style="width: 30px; height: 30px;">
-        </a>
-    </div>
-</header>    
-    
-<main>
-    <section id="affiliation">
-        <h2>
-            <img src="img/engineering.png" alt="Affiliation Icon" style="width: 30px; height: 30px; margin-right: 10px; vertical-align: middle;">
-            所属 / Affiliation
-        </h2>
-        <ul>
-            <li id="affiliation-1"><a href="https://www.uec.ac.jp/" target="_blank">国立大学法人電気通信大学</a> 情報理工学研究科 機械知能システム学専攻 博士前期課程 (Apr. 2024-)</li>
-            <li id="affiliation-2"><a href="https://ooedo.tech/" target="_blank">OOEDO SAMURAI</a> RoboMaster Project (May 2022-)
-                <ul id="ooedo-position">
-                    <li id="rm25">RM25: キャプテン，ソフト班</li>
-                    <li id="rm24">RM24: ソフト班，会計，操作手(英雄)</li>
-                </ul>
-            </li>
-        </ul>
-    </section>
+        </header>
 
-    <section id="education">
-        <h2>
-            <img src="img/school.png" alt="Education Icon" style="width: 30px; height: 30px; margin-right: 10px; vertical-align: middle;">
-            学歴 / Education
-        </h2>
-        <ul>
-            <li id="education-1">香川高等専門学校 電子システム工学科 卒業 (Apr. 2017-Mar. 2022)</li>
-            <li id="education-2">電気通信大学 情報理工学域Ⅱ類 計測・制御システムプログラム 卒業 (Apr.2022-Mar. 2024)</li>
-        </ul>
-    </section>
-
-    <section id="publications">
-        <h2>
-            <img src="img/pen.png" alt="Publications Icon" style="width: 30px; height: 30px; margin-right: 10px; vertical-align: middle;">
-            研究業績 / Publications
-        </h2>
-        <ul>
-            <li><strong>著書 / Book</strong>
+        <main>
+            <section id="affiliation">
+                <h2>
+                    <img src="img/engineering.png" alt="Affiliation Icon"
+                        style="width: 30px; height: 30px; margin-right: 10px; vertical-align: middle;">
+                    所属 / Affiliation
+                </h2>
                 <ul>
-                    <li id="book">なし</li>
+                    <li id="affiliation-1"><a href="https://www.uec.ac.jp/" target="_blank">国立大学法人 電気通信大学</a> 情報理工学研究科
+                        機械知能システム学専攻 博士前期課程 (Apr. 2024-)</li>
+                    <li id="affiliation-2"><a href="https://ooedo.tech/" target="_blank">OOEDO SAMURAI</a> RoboMaster
+                        Project (May 2022-)
+                        <ul id="ooedo-position">
+                            <li id="rm25">RM25: キャプテン，ソフト班</li>
+                            <li id="rm24">RM24: ソフト班，会計，操作手(英雄)</li>
+                        </ul>
+                    </li>
                 </ul>
-            </li>
-            <li><strong>原著論文 / Original-Paper</strong>
+            </section>
+
+            <section id="education">
+                <h2>
+                    <img src="img/school.png" alt="Education Icon"
+                        style="width: 30px; height: 30px; margin-right: 10px; vertical-align: middle;">
+                    学歴 / Education
+                </h2>
                 <ul>
-                    <li id="original-paper">なし</li>
+                    <li id="education-2">国立大学法人 電気通信大学 情報理工学域Ⅱ類 計測・制御システムプログラム 卒業 (Apr.2022-Mar. 2024)</li>
+                    <li id="education-1">独立行政法人 国立高等専門学校機構 香川高等専門学校 電子システム工学科 卒業 (Apr. 2017-Mar. 2022)</li>
                 </ul>
-            </li>
-            <li><strong>MISC</strong>
-                <ul id="misc-list">
-                    <li id="misc-1">岩本直也，三崎幸典，武智大河・尾崎玲音・河上響・林文博・福田和秀：点検ロボットと物体検出モデルを用いた架空地線の異常検出，令和2年電気学会全国大会講演論文集2020，2020.03.01</li>
-                    <li id="misc-2">岩本直也，須藤陽輝，河上響，尾崎玲音，三﨑幸典：深層学習を用いた送電線の異常検出手法の検討，電気学会電力・エネルギー部門大会論文集2019，2019.08.23</li>
+            </section>
+
+            <section id="publications">
+                <h2>
+                    <img src="img/pen.png" alt="Publications Icon"
+                        style="width: 30px; height: 30px; margin-right: 10px; vertical-align: middle;">
+                    研究業績 / Publications
+                </h2>
+                <ul>
+                    <li><strong>著書 / Book</strong>
+                        <ul>
+                            <li id="book">なし</li>
+                        </ul>
+                    </li>
+                    <li><strong>原著論文 / Original-Paper</strong>
+                        <ul>
+                            <li id="original-paper">なし</li>
+                        </ul>
+                    </li>
+                    <li><strong>MISC</strong>
+                        <ul id="misc-list">
+                            <li id="misc-1">
+                                岩本直也，三崎幸典，武智大河・尾崎玲音・河上響・林文博・福田和秀：点検ロボットと物体検出モデルを用いた架空地線の異常検出，令和2年電気学会全国大会講演論文集2020，2020.03.01
+                            </li>
+                            <li id="misc-2">
+                                岩本直也，須藤陽輝，河上響，尾崎玲音，三﨑幸典：深層学習を用いた送電線の異常検出手法の検討，電気学会電力・エネルギー部門大会論文集2019，2019.08.23</li>
+                        </ul>
+                    </li>
+                    <li><strong>国際学会発表 / International-List</strong>
+                        <ul id="international-list">
+                            <li id="international-1">〇Uta Kawakami, Kenji Sawada: Steering Control Considering Motion
+                                Sickness and Vehicle Performance via DDPG Algorithm and 6-DoF-SVC Model, IEEE
+                                International Conference on Systems, Man, and Cybernetics, 6-10, Oct. 2024 (In-person,
+                                Poster, Full Paper Review)</li>
+                            <li id="international-2">〇N. Iwamoto, Y. Misaki, T. Takechi, R. Ozaki, U. Kawakami, F.
+                                Hayashi, K. Fukuta：A Power Transmission Line Inspection Robot and An AI-Based Anomaly
+                                Detection System，2019 IEEE International Workshop on Future Computing，2019.12.16，対面開催
+                            </li>
+                        </ul>
+                    </li>
+                    <li><strong>国内学会発表 / Domestic-List</strong>
+                        <ul id="domestic-list">
+                            <li id="domestic-1">〇河上響，澤田賢治：強化学習を用いた速度計画生成アルゴリズムの動揺病および車両性能の評価，計測自動制御学会
+                                第11回制御部門マルチシンポジウム，3M6-4，2024.03.17-20，対面開催</li>
+                            <li id="domestic-2">〇河上響，澤⽥賢治：強化学習を⽤いた燃費および乗り⼼地の改善
+                                ，2023年度計測自動制御学会関西支部・システム制御情報学会シンポジウム，C1-2，2024.01.12，対面開催</li>
+                            <li id="domestic-3">
+                                河上響，〇村上和也，菅哲朗，小泉直也，新竹純：視覚刺激と触覚刺激による感情制御の実現可能性の研究，ロボティクス・メカトロニクス講演会2023，2A1-I05，2023.06.28-07.01
+                            </li>
+                            <li id="domestic-4">
+                                〇陶國多聞，境直人，河上響，尾崎玲音，伊藤翼，岩本直也，三﨑幸典，秋月拓磨，日根恭子，中内茂樹：深層学習を用いた果物・野菜小型選果装置の実用化，2021年度先進的技術シンポジウム，課題番号3103，2022.03.08，遠隔開催
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
-            </li>
-            <li><strong>国際学会発表 / International-List</strong>
-                <ul id="international-list">
-                    <li id="international-1">〇Uta Kawakami, Kenji Sawada: Steering Control Considering Motion Sickness and Vehicle Performance via DDPG Algorithm and 6-DoF-SVC Model, IEEE International Conference on Systems, Man, and Cybernetics, 6-10, Oct. 2024 (In-person, Poster, Full Paper Review)</li>
-                    <li id="international-2">〇N. Iwamoto, Y. Misaki, T. Takechi, R. Ozaki, U. Kawakami, F. Hayashi, K. Fukuta：A Power Transmission Line Inspection Robot and An AI-Based Anomaly Detection System，2019 IEEE International Workshop on Future Computing，2019.12.16，対面開催</li>
+            </section>
+
+            <section id="awards">
+                <h2>
+                    <img src="img/trophy.png" alt="Awards Icon"
+                        style="width: 30px; height: 30px; margin-right: 10px; vertical-align: middle;">
+                    受賞歴 / Awards
+                </h2>
+                <ul id="awards-list">
+                    <li id="award-1">第34回アイデア対決・全国高等専門学校ロボットコンテスト2021全国大会 アイデア賞 (Nov. 2021)</li>
+                    <li id="award-2">第32回アイデア対決・全国高等専門学校ロボットコンテスト2019全国大会 優勝・内閣総理大臣賞(Nov. 2019)</li>
+                    <li id="award-3">全国高等専門学校ディープラーニングコンテスト2019 準優勝・企業評価額3億円(Apr. 2019)</li>
                 </ul>
-            </li>
-            <li><strong>国内学会発表 / Domestic-List</strong>
-                <ul id="domestic-list">
-                    <li id="domestic-1">〇河上響，澤田賢治：強化学習を用いた速度計画生成アルゴリズムの動揺病および車両性能の評価，計測自動制御学会 第11回制御部門マルチシンポジウム，3M6-4，2024.03.17-20，対面開催</li>
-                    <li id="domestic-2">〇河上響，澤⽥賢治：強化学習を⽤いた燃費および乗り⼼地の改善 ，2023年度計測自動制御学会関西支部・システム制御情報学会シンポジウム，C1-2，2024.01.12，対面開催</li>
-                    <li id="domestic-3">河上響，〇村上和也，菅哲朗，小泉直也，新竹純：視覚刺激と触覚刺激による感情制御の実現可能性の研究，ロボティクス・メカトロニクス講演会2023，2A1-I05，2023.06.28-07.01</li>
-                    <li id="domestic-4">〇陶國多聞，境直人，河上響，尾崎玲音，伊藤翼，岩本直也，三﨑幸典，秋月拓磨，日根恭子，中内茂樹：深層学習を用いた果物・野菜小型選果装置の実用化，2021年度先進的技術シンポジウム，課題番号3103，2022.03.08，遠隔開催</li>
-                </ul>
-            </li>
-        </ul>
-    </section>
+            </section>
 
-    <section id="awards">
-        <h2>
-            <img src="img/trophy.png" alt="Awards Icon" style="width: 30px; height: 30px; margin-right: 10px; vertical-align: middle;">
-            受賞歴 / Awards
-        </h2>
-        <ul id="awards-list">
-            <li id="award-1">第34回アイデア対決・全国高等専門学校ロボットコンテスト2021全国大会 アイデア賞 (Nov. 2021)</li>
-            <li id="award-2">第32回アイデア対決・全国高等専門学校ロボットコンテスト2019全国大会 優勝・内閣総理大臣賞(Nov. 2019)</li>
-            <li id="award-3">全国高等専門学校ディープラーニングコンテスト2019 準優勝・企業評価額3億円(Apr. 2019)</li>
-        </ul>
-    </section>
+            <section id="x">
+                <div class="timeline">
+                    <a class="twitter-timeline" data-height="700"
+                        href="https://twitter.com/tau_again?ref_src=twsrc%5Etfw">Posts by Uta Kawakami</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+            </section>
 
-    <section id="x">
-        <div class="timeline">
-            <a class="twitter-timeline" data-height="700" href="https://twitter.com/tau_again?ref_src=twsrc%5Etfw">Posts by Uta Kawakami</a>
-            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>
-    </section>
+            <section id="contact">
+                <h2>
+                    <img src="img/mail.png" alt="Contact Icon"
+                        style="width: 30px; height: 30px; margin-right: 10px; vertical-align: middle;">
+                    お問い合わせ / Contact
+                </h2>
+                <p>ご質問や連絡事項がある場合は、以下のメールアドレスにご連絡ください。</p>
+                <p id="email"></p>
 
-    <section id="contact">
-        <h2>
-            <img src="img/mail.png" alt="Contact Icon" style="width: 30px; height: 30px; margin-right: 10px; vertical-align: middle;">
-            お問い合わせ / Contact
-        </h2>
-        <p>ご質問や連絡事項がある場合は、以下のメールアドレスにご連絡ください。</p>
-        <p id="email"></p>
 
-    
-</main>
+        </main>
 
-<!-- トップに戻るボタン -->
-<button onclick="scrollToTop()" id="back-to-top">Back to Top</button>
+        <!-- トップに戻るボタン -->
+        <button onclick="scrollToTop()" id="back-to-top">Back to Top</button>
 
-<footer>
-    <p>&copy; 2024 河上 響 / Uta Kawakami. All rights reserved.</p>
-    <p>This site uses Google Analytics, a service provided by Google, to analyze and improve the site. This service uses cookies to collect traffic data. Traffic data is collected anonymously and does not personally identify you.</a>.</p>
-</footer>
+        <footer>
+            <p>&copy; 2024 河上 響 / Uta Kawakami. All rights reserved.</p>
+            <p>This site uses Google Analytics, a service provided by Google, to analyze and improve the site. This
+                service uses cookies to collect traffic data. Traffic data is collected anonymously and does not
+                personally identify you.</a>.</p>
+        </footer>
 
-<script src="js/script.js"></script>
+        <script src="js/script.js"></script>
 
 </body>
+
 </html>
