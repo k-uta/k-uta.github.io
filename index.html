@@ -3,7 +3,7 @@
  * @file    index.html
  * @auther  Uta Kawakami
  * @date    13. Oct. 2024
- * Copyright (c) 2024 Uta KAWAKAMI. All rights reserved.
+ * Copyright (c) 2024-2025 Uta KAWAKAMI. All rights reserved.
  ******************************************************************************/ 
  -->
 <!DOCTYPE html>
@@ -12,7 +12,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.ico" type="img/favicon.png">
     <title>プロフィールページ</title>
     <link rel="stylesheet" href="css/styles.css">
     <!-- Google tag (gtag.js) -->
@@ -57,6 +56,12 @@
                                 <i class="fas fa-book"></i>
                             </span>
                             <span>研究業績</span>
+                        </a>
+                        <a class="navbar-item" href="#committee">
+                            <span class="icon">
+                                <i class="fas fa-users-cog"></i>
+                            </span>
+                            <span>委員歴</span>
                         </a>
                         <a class="navbar-item" href="#awards">
                             <span class="icon">
@@ -120,7 +125,7 @@
                     <li id="affiliation-2"><a href="https://ooedo.tech/" target="_blank">OOEDO SAMURAI</a> RoboMaster
                         Project (May 2022-)
                         <ul id="ooedo-position">
-                            <li id="rm25">RM25: キャプテン，ソフト班</li>
+                            <li id="rm25">RM25: キャプテン, ソフト班</li>
                         </ul>
                     </li>
                 </ul>
@@ -155,16 +160,7 @@
                             <li id="original-paper">なし</li>
                         </ul>
                     </li>
-                    <li><strong>MISC</strong>
-                        <ul id="misc-list">
-                            <li id="misc-1">
-                                岩本直也，三崎幸典，武智大河・尾崎玲音・河上響・林文博・福田和秀：点検ロボットと物体検出モデルを用いた架空地線の異常検出，令和2年電気学会全国大会講演論文集2020，2020.03.01
-                            </li>
-                            <li id="misc-2">
-                                岩本直也，須藤陽輝，河上響，尾崎玲音，三﨑幸典：深層学習を用いた送電線の異常検出手法の検討，電気学会電力・エネルギー部門大会論文集2019，2019.08.23</li>
-                        </ul>
-                    </li>
-                    <li><strong>国際学会発表 / International-List</strong>
+                    <li><strong>国際学会発表 / International Conference</strong>
                         <ul id="international-list">
                             <li id="international-1">〇Uta Kawakami, Kenji Sawada: Steering Control Considering Motion
                                 Sickness and Vehicle Performance via DDPG Algorithm and 6-DoF-SVC Model, IEEE
@@ -172,24 +168,47 @@
                                 Poster, Full Paper Review)</li>
                             <li id="international-2">〇N. Iwamoto, Y. Misaki, T. Takechi, R. Ozaki, U. Kawakami, F.
                                 Hayashi, K. Fukuta：A Power Transmission Line Inspection Robot and An AI-Based Anomaly
-                                Detection System，2019 IEEE International Workshop on Future Computing，2019.12.16，対面開催
+                                Detection System, 2019 IEEE International Workshop on Future Computing, 2019.12.16, 対面開催
                             </li>
                         </ul>
                     </li>
-                    <li><strong>国内学会発表 / Domestic-List</strong>
+                    <li><strong>国内学会発表 / Domestic Conference</strong>
                         <ul id="domestic-list">
-                            <li id="domestic-1">〇河上響，澤田賢治：強化学習を用いた速度計画生成アルゴリズムの動揺病および車両性能の評価，計測自動制御学会
-                                第11回制御部門マルチシンポジウム，3M6-4，2024.03.17-20，対面開催</li>
-                            <li id="domestic-2">〇河上響，澤⽥賢治：強化学習を⽤いた燃費および乗り⼼地の改善
-                                ，2023年度計測自動制御学会関西支部・システム制御情報学会シンポジウム，C1-2，2024.01.12，対面開催</li>
+                            <li id="domestic-1">〇河上響, 澤田賢治：強化学習を用いた速度計画生成アルゴリズムの動揺病および車両性能の評価, 計測自動制御学会
+                                第11回制御部門マルチシンポジウム, 3M6-4, 2024.03.17-20, 対面開催</li>
+                            <li id="domestic-2">〇河上響, 澤⽥賢治：強化学習を⽤いた燃費および乗り⼼地の改善
+                                , 2023年度計測自動制御学会関西支部・システム制御情報学会シンポジウム, C1-2, 2024.01.12, 対面開催</li>
                             <li id="domestic-3">
-                                河上響，〇村上和也，菅哲朗，小泉直也，新竹純：視覚刺激と触覚刺激による感情制御の実現可能性の研究，ロボティクス・メカトロニクス講演会2023，2A1-I05，2023.06.28-07.01
+                                河上響, 〇村上和也, 菅哲朗, 小泉直也, 新竹純：視覚刺激と触覚刺激による感情制御の実現可能性の研究, ロボティクス・メカトロニクス講演会2023, 2A1-I05,
+                                2023.06.28-07.01
                             </li>
                             <li id="domestic-4">
-                                〇陶國多聞，境直人，河上響，尾崎玲音，伊藤翼，岩本直也，三﨑幸典，秋月拓磨，日根恭子，中内茂樹：深層学習を用いた果物・野菜小型選果装置の実用化，2021年度先進的技術シンポジウム，課題番号3103，2022.03.08，遠隔開催
+                                〇陶國多聞, 境直人, 河上響, 尾崎玲音, 伊藤翼, 岩本直也, 三﨑幸典, 秋月拓磨, 日根恭子, 中内茂樹：深層学習を用いた果物・野菜小型選果装置の実用化,
+                                2021年度先進的技術シンポジウム, 課題番号3103, 2022.03.08, 遠隔開催
+                            </li>
+                            <li id="domestic-5">
+                                岩本直也, 三崎幸典, 武智大河・尾崎玲音・河上響・林文博・福田和秀：点検ロボットと物体検出モデルを用いた架空地線の異常検出, 令和2年電気学会全国大会講演論文集2020,
+                                2020.03.01
+                            </li>
+                            <li id="domestic-6">
+                                岩本直也, 須藤陽輝, 河上響, 尾崎玲音, 三﨑幸典：深層学習を用いた送電線の異常検出手法の検討, 電気学会電力・エネルギー部門大会論文集2019,
+                                2019.09.03-09.06
                             </li>
                         </ul>
                     </li>
+                </ul>
+            </section>
+
+            <section id="committee">
+                <h2>
+                    <img src="img/committee.png" alt="Committee Icon"
+                        style="width: 30px; height: 30px; margin-right: 10px; vertical-align: middle;">
+                    委員歴 / Committee Memberships
+                </h2>
+                <ul id="committee-list">
+                    </li>
+                    <li id="committee-1">Reviewer, Paper Review Committee, 2024 IEEE International Conference on
+                        Systems, Man, and Cybernetics</li>
                 </ul>
             </section>
 
@@ -200,7 +219,7 @@
                     受賞歴 / Awards
                 </h2>
                 <ul id="awards-list">
-                    <li id="award-4">
+                    <li id="award-1">
                         The RoboMaster University Championship 2024 (Aug. 2024)
                         <ul>
                             <li>Position: Vice Captain, Treasurer, Software Section, and Hero Robot Operator</li>
@@ -208,15 +227,15 @@
                             <li>Final Tournament: Third Prize</li>
                         </ul>
                     </li>
-                    <li id="award-1">第34回アイデア対決・全国高等専門学校ロボットコンテスト2021全国大会 アイデア賞 (Nov. 2021)</li>
-                    <li id="award-2">第32回アイデア対決・全国高等専門学校ロボットコンテスト2019全国大会 優勝・内閣総理大臣賞(Nov. 2019)</li>
-                    <li id="award-3">全国高等専門学校ディープラーニングコンテスト2019 準優勝・企業評価額3億円(Apr. 2019)</li>
+                    <li id="award-2">第34回アイデア対決・全国高等専門学校ロボットコンテスト2021全国大会 アイデア賞・文部科学大臣賞 (Nov. 2021)</li>
+                    <li id="award-3">第32回アイデア対決・全国高等専門学校ロボットコンテスト2019全国大会 優勝・内閣総理大臣賞(Nov. 2019)</li>
+                    <li id="award-4">全国高等専門学校ディープラーニングコンテスト2019 準優勝・企業評価額3億円(Apr. 2019)</li>
                 </ul>
             </section>
 
             <section id="x">
                 <div class="timeline">
-                    <a class="twitter-timeline" data-height="700"
+                    <a class="twitter-timeline" data-height="500"
                         href="https://twitter.com/tau_again?ref_src=twsrc%5Etfw">Posts by Uta Kawakami</a>
                     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
@@ -238,7 +257,7 @@
         <button onclick="scrollToTop()" id="back-to-top">Back to Top</button>
 
         <footer>
-            <p>&copy; 2024 河上 響 / Uta Kawakami. All rights reserved.</p>
+            <p>&copy; 2024-2025 河上 響 / Uta Kawakami. All rights reserved.</p>
             <p>This site uses Google Analytics, a service provided by Google, to analyze and improve the site. This
                 service uses cookies to collect traffic data. Traffic data is collected anonymously and does not
                 personally identify you.</a>.</p>
