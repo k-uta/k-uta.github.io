@@ -10,9 +10,12 @@ body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f7f7; /* 淡いグレー */
-    color: #333333; /* 濃いグレー */
+    background-color: #f7f7f7;
+    /* 淡いグレー */
+    color: #333333;
+    /* 濃いグレー */
 }
+
 header {
     position: relative;
     display: flex;
@@ -32,8 +35,10 @@ header::before {
     background-image: url('../img/kuching.jpg');
     background-size: cover;
     background-position: center;
-    opacity: 0.5; /* 背景画像のみに透過を適用 */
-    z-index: -1; /* 背景として配置 */
+    opacity: 0.5;
+    /* 背景画像のみに透過を適用 */
+    z-index: -1;
+    /* 背景として配置 */
 }
 
 header img {
@@ -42,16 +47,21 @@ header img {
     border-radius: 50%;
     width: 150px;
     height: 150px;
-    border: 5px solid #ffffff; /* 白い枠を追加 */
+    border: 5px solid #ffffff;
+    /* 白い枠を追加 */
 }
+
 header h1 {
     color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* テキストに影を追加して強調 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    /* テキストに影を追加して強調 */
 }
+
 header button {
     margin-top: 20px;
     padding: 10px 30px;
-    background-color: #4a90e2; /* 明るめのブルー */
+    background-color: #4a90e2;
+    /* 明るめのブルー */
     color: white;
     border: none;
     border-radius: 25px;
@@ -61,80 +71,110 @@ header button {
 }
 
 header button:hover {
-    background-color: #00bfa5; /* ホバー時に緑色へ */
+    background-color: #00bfa5;
+    /* ホバー時に緑色へ */
 }
+
 /* SNS icon container adjustments */
 .social-links img {
-    width: 40px; /* アイコンの幅を40pxに固定 */
-    height: 40px; /* アイコンの高さも40pxに固定 */
-    object-fit: contain; /* アイコンが枠内に収まるように */
-    display: block; /* 画像をブロック要素にして中央揃えしやすく */
-    margin: auto; /* 画像をコンテナ内で中央揃え */
+    width: 40px;
+    /* アイコンの幅を40pxに固定 */
+    height: 40px;
+    /* アイコンの高さも40pxに固定 */
+    object-fit: contain;
+    /* アイコンが枠内に収まるように */
+    display: block;
+    /* 画像をブロック要素にして中央揃えしやすく */
+    margin: auto;
+    /* 画像をコンテナ内で中央揃え */
 }
 
 /* SNSアイコンを囲むコンテナの調整 */
 .social-links a {
     display: inline-block;
-    width: 50px; /* コンテナの幅 */
-    height: 50px; /* コンテナの高さ */
-    background-color: white; /* 背景を白に */
-    border-radius: 50%; /* 丸い背景 */
-    padding: 1px; /* 内側の余白 */
-    margin: 0 10px; /* アイコン間の隙間 */
+    width: 50px;
+    /* コンテナの幅 */
+    height: 50px;
+    /* コンテナの高さ */
+    background-color: white;
+    /* 背景を白に */
+    border-radius: 50%;
+    /* 丸い背景 */
+    padding: 1px;
+    /* 内側の余白 */
+    margin: 0 10px;
+    /* アイコン間の隙間 */
     transition: transform 0.3s ease;
     display: flex;
-    justify-content: center; /* アイコンを中央揃え */
-    align-items: center; /* 垂直方向にも中央揃え */
+    justify-content: center;
+    /* アイコンを中央揃え */
+    align-items: center;
+    /* 垂直方向にも中央揃え */
 }
 
 .social-links a:hover {
-    transform: scale(1.1); /* ホバー時に少し拡大 */
+    transform: scale(1.1);
+    /* ホバー時に少し拡大 */
 }
 
 
 main {
     padding: 20px;
 }
+
 section {
     background: #ffffff;
     margin: 20px 0;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* より大きめの影を追加 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* より大きめの影を追加 */
     transition: transform 0.3s ease;
 }
-h1, h2 {
+
+h1,
+h2 {
     font-family: 'Montserrat', sans-serif;
     color: #444444;
 }
+
 h2 {
     font-size: 1.1em;
-    border-bottom: 2px solid #f1d1d0; /* 非常に淡いピンク */
+    border-bottom: 2px solid #f1d1d0;
+    /* 非常に淡いピンク */
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
+
 ul {
     list-style: none;
     padding: 0;
 }
+
 ul li {
     background: #f9f9f9;
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
-    border-left: 5px solid #f1d1d0; /* 非常に淡いピンク */
+    border-left: 5px solid #f1d1d0;
+    /* 非常に淡いピンク */
 }
+
 footer {
-    background-color: #333333; /* フッターの色を濃く */
+    background-color: #333333;
+    /* フッターの色を濃く */
     color: white;
     text-align: center;
     padding: 20px;
 }
+
 #back-to-top {
     position: fixed;
-    bottom: 110px; /* フッターから距離を取るためにボタンの位置を40pxに変更 */
+    bottom: 110px;
+    /* フッターから距離を取るためにボタンの位置を40pxに変更 */
     right: 20px;
-    background-color: #4a90e2; /* ボタンの色を変更 */
+    background-color: #4a90e2;
+    /* ボタンの色を変更 */
     color: white;
     border: none;
     padding: 15px 20px;
@@ -144,17 +184,24 @@ footer {
     font-size: 18px;
     transition: background-color 0.3s ease;
 }
+
 #back-to-top:hover {
     background-color: #00bfa5;
 }
+
 /* Navigation bar styles with background image */
 .navbar {
-    background-size: cover; /* 画像を全体に表示 */
-    background-position: center; /* 画像の中央を表示 */
-    background-repeat: no-repeat; /* 画像の繰り返しを無効化 */
-    background-color: rgba(126, 126, 126, 0.8); /* 透過を適用 (青色に半透明) */
+    background-size: cover;
+    /* 画像を全体に表示 */
+    background-position: center;
+    /* 画像の中央を表示 */
+    background-repeat: no-repeat;
+    /* 画像の繰り返しを無効化 */
+    background-color: rgba(126, 126, 126, 0.8);
+    /* 透過を適用 (青色に半透明) */
     padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* ナビゲーションバーの下に影を追加 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* ナビゲーションバーの下に影を追加 */
     position: fixed;
     top: 0;
     width: 100%;
@@ -163,7 +210,8 @@ footer {
 
 /* Adjust profile image positioning */
 header {
-    padding-top: 80px; /* ナビゲーションバーの高さを考慮して余白を追加 */
+    padding-top: 80px;
+    /* ナビゲーションバーの高さを考慮して余白を追加 */
     text-align: center;
 }
 
@@ -174,8 +222,10 @@ header img {
     border-radius: 50%;
     width: 150px;
     height: 150px;
-    border: 5px solid #ffffff; /* 白い枠を追加 */
-    margin-top: 40px; /* ナビゲーションバーと重ならないように調整 */
+    border: 5px solid #ffffff;
+    /* 白い枠を追加 */
+    margin-top: 40px;
+    /* ナビゲーションバーと重ならないように調整 */
 }
 
 .navbar .navbar-item {
@@ -187,6 +237,22 @@ header img {
 }
 
 .navbar .navbar-item:hover {
-    background-color: rgba(53, 122, 189, 0.8); /* ホバー時も半透明を適用 */
+    background-color: rgba(53, 122, 189, 0.8);
+    /* ホバー時も半透明を適用 */
     border-radius: 5px;
+}
+
+.copy-icon-img {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.copy-icon-img:hover {
+    opacity: 1.0;
 }

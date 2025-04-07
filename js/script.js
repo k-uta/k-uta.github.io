@@ -179,3 +179,22 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('count-domestic').textContent =
         document.querySelectorAll('#domestic-list li').length + ' 件';
 });
+
+function copyBibtexFromBibFile(key) {
+    fetch('publications.bib')
+        .then(response => response.text())
+        .then(text => {
+            const regex = new RegExp(`@\\w+\\{${key},[\\s\\S]*?\\n\\}`, 'g');
+            const match = text.match(regex);
+            if (match && match[0]) {
+                navigator.clipboard.writeText(match[0]).then(() => {
+                    alert("BibTeX copied to clipboard!");
+                });
+            } else {
+                alert("BibTeX entry not found for: " + key);
+            }
+        })
+        .catch(err => {
+            alert("Failed to load publications.bib: " + err);
+        });
+}
