@@ -184,10 +184,13 @@ function copyBibtexFromBibFile(key) {
     fetch('publications.bib')
         .then(response => response.text())
         .then(text => {
-            const regex = new RegExp(`@\\w+\\{${key},[\\s\\S]*?\\n\\}`, 'g');
-            const match = text.match(regex);
-            if (match && match[0]) {
-                navigator.clipboard.writeText(match[0]).then(() => {
+            // 正規表現の改良版：次の @ で終わるように調整
+            const regex = new RegExp(`@\\w+\\{${key},[\\s\\S]*?\\n\\}`, 'g'); // ←ここを修正
+            const entries = text.split(/(?=@\w+\{)/); // すべてのエントリで分割
+            const match = entries.find(entry => entry.includes(`{${key},`));
+
+            if (match) {
+                navigator.clipboard.writeText(match.trim()).then(() => {
                     alert("BibTeX copied to clipboard!");
                 });
             } else {

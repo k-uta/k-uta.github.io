@@ -243,11 +243,12 @@ header img {
 }
 
 .copy-icon-img {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 20px;
-    height: 20px;
+    display: inline-block;
+    vertical-align: text-bottom;
+    /* または middle で調整 */
+    width: 18px;
+    height: 18px;
+    margin-left: 6px;
     cursor: pointer;
     opacity: 0.6;
     transition: opacity 0.2s;
@@ -255,4 +256,35 @@ header img {
 
 .copy-icon-img:hover {
     opacity: 1.0;
+}
+
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 100px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+
+    position: absolute;
+    bottom: 125%;
+    /* 上に表示 */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 100;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
 }
