@@ -72,51 +72,35 @@ header button {
 
 header button:hover {
     background-color: #00bfa5;
-    /* ホバー時に緑色へ */
 }
 
 /* SNS icon container adjustments */
 .social-links img {
     width: 40px;
-    /* アイコンの幅を40pxに固定 */
     height: 40px;
-    /* アイコンの高さも40pxに固定 */
     object-fit: contain;
-    /* アイコンが枠内に収まるように */
     display: block;
-    /* 画像をブロック要素にして中央揃えしやすく */
     margin: auto;
-    /* 画像をコンテナ内で中央揃え */
 }
 
 /* SNSアイコンを囲むコンテナの調整 */
 .social-links a {
     display: inline-block;
     width: 50px;
-    /* コンテナの幅 */
     height: 50px;
-    /* コンテナの高さ */
     background-color: white;
-    /* 背景を白に */
     border-radius: 50%;
-    /* 丸い背景 */
     padding: 1px;
-    /* 内側の余白 */
     margin: 0 10px;
-    /* アイコン間の隙間 */
     transition: transform 0.3s ease;
     display: flex;
     justify-content: center;
-    /* アイコンを中央揃え */
     align-items: center;
-    /* 垂直方向にも中央揃え */
 }
 
 .social-links a:hover {
     transform: scale(1.1);
-    /* ホバー時に少し拡大 */
 }
-
 
 main {
     padding: 20px;
@@ -128,7 +112,6 @@ section {
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    /* より大きめの影を追加 */
     transition: transform 0.3s ease;
 }
 
@@ -140,8 +123,7 @@ h2 {
 
 h2 {
     font-size: 1.1em;
-    border-bottom: 2px solid #f1d1d0;
-    /* 非常に淡いピンク */
+    border-bottom: 2px solid #000000;
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
@@ -156,13 +138,11 @@ ul li {
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
-    border-left: 5px solid #f1d1d0;
-    /* 非常に淡いピンク */
+    border-left: 5px solid #161616;
 }
 
 footer {
-    background-color: #333333;
-    /* フッターの色を濃く */
+    background-color: #000000;
     color: white;
     text-align: center;
     padding: 20px;
@@ -173,7 +153,7 @@ footer {
     bottom: 110px;
     /* フッターから距離を取るためにボタンの位置を40pxに変更 */
     right: 20px;
-    background-color: #4a90e2;
+    background-color: #333333be;
     /* ボタンの色を変更 */
     color: white;
     border: none;
@@ -237,8 +217,7 @@ header img {
 }
 
 .navbar .navbar-item:hover {
-    background-color: rgba(53, 122, 189, 0.8);
-    /* ホバー時も半透明を適用 */
+    background-color: rgba(61, 61, 61, 0.8);
     border-radius: 5px;
 }
 
@@ -276,7 +255,6 @@ header img {
 
     position: absolute;
     bottom: 125%;
-    /* 上に表示 */
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
