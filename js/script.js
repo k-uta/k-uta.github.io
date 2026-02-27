@@ -1,101 +1,221 @@
 /******************************************************************************
  * @file    script.js
- * @auther  Uta Kawakami
+ * @author  Uta Kawakami
  * @date    13. Oct. 2024
  * Copyright (c) 2024-2026 Uta KAWAKAMI. All rights reserved.
  ******************************************************************************/
 
-// ページのトップにスクロールする関数
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
+'use strict';
 
-// スクロール位置に応じてボタンの表示を切り替える
-window.onscroll = function () {
-    var backToTopButton = document.getElementById('back-to-top');
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        backToTopButton.style.display = "block";
-    } else {
-        backToTopButton.style.display = "none";
+// ============================================================================
+// Constants
+// ============================================================================
+
+/** Website 表示用カスタムフィールド（BibTeX コピー時に除去） */
+const CUSTOM_FIELDS = [
+    'category', 'dates', 'presentation', 'venue',
+    'session', 'venue_type', 'video',
+];
+
+/** 月名→月番号の変換テーブル */
+const MONTH_MAP = Object.freeze({
+    jan: 1, january: 1, feb: 2, february: 2, mar: 3, march: 3,
+    apr: 4, april: 4, may: 5, jun: 6, june: 6, jul: 7, july: 7,
+    aug: 8, august: 8, sep: 9, september: 9, oct: 10, october: 10,
+    nov: 11, november: 11, dec: 12, december: 12,
+    '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6,
+    '7': 7, '8': 8, '9': 9, '10': 10, '11': 11, '12': 12,
+});
+
+/** GitHub リポジトリ名 */
+const GITHUB_REPO = 'k-uta/k-uta.github.io';
+
+/** publications.bib の生テキストキャッシュ */
+let bibCache = null;
+
+// ============================================================================
+// DOM References (populated in init)
+// ============================================================================
+
+let elNavbar, elHamburger, elNavMenu, elBackToTop;
+
+// ============================================================================
+// Initialisation — single DOMContentLoaded
+// ============================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Cache DOM elements ---
+    elNavbar = document.getElementById('navbar');
+    elHamburger = document.getElementById('hamburger');
+    elNavMenu = document.getElementById('nav-menu');
+    elBackToTop = document.getElementById('back-to-top');
+
+    // --- Setup ---
+    initNavigation();
+    initSmoothScroll();
+    initScrollObserver();
+    initBackToTop();
+    initEmail();
+    renderPublications();
+    fetchLastCommitDate();
+});
+
+// ============================================================================
+// Scroll — single listener for navbar + back-to-top
+// ============================================================================
+
+window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+
+    // Navbar background on scroll
+    if (elNavbar) {
+        elNavbar.classList.toggle('scrolled', y > 50);
     }
-}
 
-// スムーズスクロール
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+    // Back-to-top visibility
+    if (elBackToTop) {
+        elBackToTop.style.display = y > 300 ? 'flex' : 'none';
+    }
+}, { passive: true });
+
+// ============================================================================
+// Navigation (hamburger)
+// ============================================================================
+
+function initNavigation() {
+    if (!elHamburger || !elNavMenu) return;
+
+    elHamburger.addEventListener('click', () => {
+        const isActive = elHamburger.classList.toggle('active');
+        elNavMenu.classList.toggle('active');
+        elHamburger.setAttribute('aria-expanded', String(isActive));
+    });
+
+    // Close menu when any nav-link is clicked
+    elNavMenu.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            elHamburger.classList.remove('active');
+            elNavMenu.classList.remove('active');
+            elHamburger.setAttribute('aria-expanded', 'false');
         });
     });
-});
+}
+
+// ============================================================================
+// Smooth Scroll
+// ============================================================================
+
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+            const target = document.querySelector(anchor.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+}
+
+// ============================================================================
+// Scroll Reveal (Intersection Observer)
+// ============================================================================
+
+function initScrollObserver() {
+    const observer = new IntersectionObserver(
+        (entries) => {
+            for (const entry of entries) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            }
+        },
+        { rootMargin: '0px 0px -60px 0px', threshold: 0.1 },
+    );
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+
+// ============================================================================
+// Back to Top
+// ============================================================================
+
+function initBackToTop() {
+    if (!elBackToTop) return;
+    elBackToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// ============================================================================
+// Email (anti-spam obfuscation)
+// ============================================================================
+
+function initEmail() {
+    const el = document.getElementById('email');
+    if (!el) return;
+
+    const user = 'uta.kawakami';
+    const domain = 'uec.ac.jp';
+    const addr = `${user}@${domain}`;
+    el.innerHTML = `<a href="mailto:${addr}"><i class="fas fa-envelope"></i> ${addr}</a>`;
+}
 
 // ============================================================================
 // BibTeX Parser
 // ============================================================================
 
 /**
- * BibTeXファイルをパースしてエントリオブジェクトの配列を返す
- * 各エントリ: { type, key, fields: { fieldName: fieldValue, ... } }
+ * BibTeX テキストをパースしてエントリ配列を返す．
+ * @param {string} text  .bib ファイルの中身
+ * @returns {{ type: string, key: string, fields: Record<string, string> }[]}
  */
 function parseBibTeX(text) {
     const entries = [];
-    const rawEntries = text.split(/(?=@\w+\{)/);
 
-    for (const raw of rawEntries) {
-        const headerMatch = raw.match(/^@(\w+)\{([^,]+),/);
-        if (!headerMatch) continue;
+    for (const raw of text.split(/(?=@\w+\{)/)) {
+        const header = raw.match(/^@(\w+)\{([^,]+),/);
+        if (!header) continue;
 
-        const type = headerMatch[1].toLowerCase();
-        const key = headerMatch[2].trim();
+        const type = header[1].toLowerCase();
+        const key = header[2].trim();
         const fields = {};
-        const content = raw.substring(headerMatch[0].length);
+        const body = raw.substring(header[0].length);
 
         let i = 0;
-        while (i < content.length) {
-            while (i < content.length && /[\s,]/.test(content[i])) i++;
-            if (i >= content.length || content[i] === '}') break;
+        while (i < body.length) {
+            // skip whitespace / commas
+            while (i < body.length && /[\s,]/.test(body[i])) i++;
+            if (i >= body.length || body[i] === '}') break;
 
-            let fieldName = '';
-            while (i < content.length && /[a-zA-Z_]/.test(content[i])) {
-                fieldName += content[i];
-                i++;
-            }
-            if (!fieldName) { i++; continue; }
+            // field name
+            let name = '';
+            while (i < body.length && /[a-zA-Z_]/.test(body[i])) name += body[i++];
+            if (!name) { i++; continue; }
 
-            while (i < content.length && /[\s=]/.test(content[i])) i++;
+            // skip '='
+            while (i < body.length && /[\s=]/.test(body[i])) i++;
 
+            // field value
             let value = '';
-            if (content[i] === '{') {
+            if (body[i] === '{') {
                 let depth = 0;
                 i++;
-                while (i < content.length) {
-                    if (content[i] === '{') depth++;
-                    else if (content[i] === '}') {
-                        if (depth === 0) { i++; break; }
-                        depth--;
-                    }
-                    value += content[i];
-                    i++;
+                while (i < body.length) {
+                    if (body[i] === '{') depth++;
+                    else if (body[i] === '}') { if (depth === 0) { i++; break; } depth--; }
+                    value += body[i++];
                 }
-            } else if (content[i] === '"') {
+            } else if (body[i] === '"') {
                 i++;
-                while (i < content.length && content[i] !== '"') {
-                    value += content[i];
-                    i++;
-                }
+                while (i < body.length && body[i] !== '"') value += body[i++];
                 i++;
             } else {
-                while (i < content.length && content[i] !== ',' && content[i] !== '}') {
-                    value += content[i];
-                    i++;
-                }
+                while (i < body.length && body[i] !== ',' && body[i] !== '}') value += body[i++];
             }
 
-            fields[fieldName.toLowerCase()] = value.trim();
+            fields[name.toLowerCase()] = value.trim();
         }
 
         entries.push({ type, key, fields });
@@ -105,311 +225,274 @@ function parseBibTeX(text) {
 }
 
 // ============================================================================
-// 著者名フォーマット
+// Author Formatting
 // ============================================================================
 
-function isJapaneseText(text) {
-    return /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf\uff00-\uffef]/.test(text);
-}
+const RE_JAPANESE = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf\uff00-\uffef]/;
 
+/**
+ * "and" 区切りの著者文字列を HTML に整形する．
+ * 自分の名前 (Kawakami / 河上) は <u> で下線表示．
+ */
 function formatAuthors(authorStr) {
-    const authors = authorStr.split(/\s+and\s+/).map(a => a.trim());
-    const japanese = isJapaneseText(authorStr);
+    const authors = authorStr.split(/\s+and\s+/).map(s => s.trim());
+    const japanese = RE_JAPANESE.test(authorStr);
 
     if (japanese) {
-        const formatted = authors.map(a => {
-            const name = a.replace(/\s+/g, '');
-            return name.includes('河上') ? `<u>${name}</u>` : name;
-        });
-        return formatted.join(', ');
-    } else {
-        const formatted = authors.map(a => {
-            let first, last;
-            if (a.includes(',')) {
-                const parts = a.split(',').map(s => s.trim());
-                last = parts[0];
-                first = parts[1];
-            } else {
-                const parts = a.trim().split(/\s+/);
-                last = parts[parts.length - 1];
-                first = parts.slice(0, -1).join(' ');
-            }
-            const initial = first ? first.charAt(0) + '.' : '';
-            const isOwner = last.toLowerCase() === 'kawakami';
-            const display = initial ? `${initial} ${last}` : last;
-            return isOwner ? `<u>${display}</u>` : display;
-        });
-
-        if (formatted.length === 1) return formatted[0];
-        if (formatted.length === 2) return `${formatted[0]}, and ${formatted[1]}`;
-        return formatted.slice(0, -1).join(', ') + ', and ' + formatted[formatted.length - 1];
+        return authors
+            .map(a => {
+                const n = a.replace(/\s+/g, '');
+                return n.includes('河上') ? `<u>${n}</u>` : n;
+            })
+            .join(', ');
     }
+
+    const formatted = authors.map(a => {
+        let first, last;
+        if (a.includes(',')) {
+            [last, first] = a.split(',').map(s => s.trim());
+        } else {
+            const parts = a.trim().split(/\s+/);
+            last = parts.pop();
+            first = parts.join(' ');
+        }
+        const initial = first ? `${first.charAt(0)}.` : '';
+        const display = initial ? `${initial} ${last}` : last;
+        return last.toLowerCase() === 'kawakami' ? `<u>${display}</u>` : display;
+    });
+
+    if (formatted.length <= 2) return formatted.join(', and ');
+    return `${formatted.slice(0, -1).join(', ')}, and ${formatted.at(-1)}`;
 }
 
 // ============================================================================
-// エントリ表示フォーマット
+// Entry Renderers
 // ============================================================================
 
 function capitalizeMonth(str) {
-    if (!str) return '';
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : '';
 }
 
-function renderPaperEntry(entry) {
-    const f = entry.fields;
-    const authors = formatAuthors(f.author);
-    let html = `${authors}, "${f.title}," <i>${f.journal}</i>`;
+function renderPaperEntry({ fields: f }) {
+    let html = `${formatAuthors(f.author)}, "${f.title}," <i>${f.journal}</i>`;
     if (f.volume) html += `, Vol.${f.volume}`;
-    if (f.number && f.number.trim()) html += `, No.${f.number}`;
+    if (f.number?.trim()) html += `, No.${f.number}`;
     if (f.pages) html += `, pp. ${f.pages}`;
-    if (f.month) {
-        html += `, ${capitalizeMonth(f.month)}. ${f.year}`;
-    } else {
-        html += `, ${f.year}`;
-    }
+    html += f.month ? `, ${capitalizeMonth(f.month)}. ${f.year}` : `, ${f.year}`;
     return html;
 }
 
-function renderInternationalEntry(entry) {
-    const f = entry.fields;
-    const authors = formatAuthors(f.author);
+function renderInternationalEntry({ fields: f }) {
     const venue = f.booktitle || f.journal;
-    let html = `${authors}, "${f.title}," <i>${venue}</i>`;
+    let html = `${formatAuthors(f.author)}, "${f.title}," <i>${venue}</i>`;
     if (f.dates) html += `, ${f.dates}`;
     if (f.presentation) html += ` (${f.presentation})`;
     return html;
 }
 
-function renderDomesticEntry(entry) {
-    const f = entry.fields;
-    const authors = formatAuthors(f.author);
+function renderDomesticEntry({ fields: f }) {
     const venue = f.venue || f.booktitle || f.journal;
-    let html = `${authors}, "${f.title}," ${venue}`;
+    let html = `${formatAuthors(f.author)}, "${f.title}," ${venue}`;
     if (f.session) html += `, ${f.session}`;
     if (f.dates) html += `, ${f.dates}`;
     if (f.venue_type) html += `, ${f.venue_type}`;
     return html;
 }
 
+/** カテゴリ → レンダラー */
+const RENDERERS = {
+    paper: renderPaperEntry,
+    international: renderInternationalEntry,
+    domestic: renderDomesticEntry,
+};
+
 // ============================================================================
-// HTML生成
+// HTML Generation
 // ============================================================================
 
 function createCopyButton(key) {
-    return `<div class="tooltip">
-        <img src="img/copy.png" alt="Click to copy BibTeX" class="copy-icon-img"
-            onclick="copyBibtexFromBibFile('${key}')">
-        <span class="tooltip-text">Click to copy BibTeX</span>
-    </div>`;
+    return '<div class="tooltip">'
+        + `<img src="img/copy.png" alt="Click to copy BibTeX" class="copy-icon-img" data-bib-key="${key}">`
+        + '<span class="tooltip-text">Click to copy BibTeX</span>'
+        + '</div>';
 }
 
 function createEntryHTML(entry, category) {
-    const f = entry.fields;
-    let textHTML = '';
-
-    switch (category) {
-        case 'paper':
-            textHTML = renderPaperEntry(entry);
-            break;
-        case 'international':
-            textHTML = renderInternationalEntry(entry);
-            break;
-        case 'domestic':
-            textHTML = renderDomesticEntry(entry);
-            break;
-    }
-
+    const renderer = RENDERERS[category];
+    const textHTML = renderer ? renderer(entry) : '';
     const copyBtn = createCopyButton(entry.key);
 
-    if (f.video) {
-        return `<li>
-            <div class="publication-layout">
-                <div class="publication-text">
-                    ${textHTML}
-                    ${copyBtn}
-                </div>
-                <div class="publication-video">
-                    <div class="video-container">
-                        <iframe class="styled-iframe" width="560" height="315"
-                            src="${f.video}"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </li>`;
+    if (entry.fields.video) {
+        return '<li>'
+            + '<div class="publication-layout">'
+            + `<div class="publication-text">${textHTML}${copyBtn}</div>`
+            + '<div class="publication-video"><div class="video-container">'
+            + `<iframe class="styled-iframe" width="560" height="315" src="${entry.fields.video}"`
+            + ' title="YouTube video player" frameborder="0" loading="lazy"'
+            + ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"'
+            + ' referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            + '</div></div>'
+            + '</div>'
+            + '</li>';
     }
 
     return `<li>${textHTML}${copyBtn}</li>`;
 }
 
 // ============================================================================
-// ソート
+// Sorting
 // ============================================================================
 
-const MONTH_MAP = {
-    jan: 1, january: 1, feb: 2, february: 2, mar: 3, march: 3,
-    apr: 4, april: 4, may: 5, jun: 6, june: 6, jul: 7, july: 7,
-    aug: 8, august: 8, sep: 9, september: 9, oct: 10, october: 10,
-    nov: 11, november: 11, dec: 12, december: 12,
-    '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6,
-    '7': 7, '8': 8, '9': 9, '10': 10, '11': 11, '12': 12
-};
-
-function getMonthNumber(monthStr) {
-    if (!monthStr) return 0;
-    return MONTH_MAP[monthStr.toLowerCase().trim()] || 0;
+function getMonthNumber(str) {
+    return str ? (MONTH_MAP[str.toLowerCase().trim()] || 0) : 0;
 }
 
-function sortEntries(entries) {
+function sortByDate(entries) {
     return entries.sort((a, b) => {
-        const yearDiff = (parseInt(b.fields.year) || 0) - (parseInt(a.fields.year) || 0);
-        if (yearDiff !== 0) return yearDiff;
-        return getMonthNumber(b.fields.month) - getMonthNumber(a.fields.month);
+        const dy = (parseInt(b.fields.year) || 0) - (parseInt(a.fields.year) || 0);
+        return dy !== 0 ? dy : getMonthNumber(b.fields.month) - getMonthNumber(a.fields.month);
     });
 }
 
 // ============================================================================
-// メイン描画処理
+// Publications — Main Render
 // ============================================================================
 
-// Website表示用のカスタムフィールド（BibTeXコピー時に除去する）
-const CUSTOM_FIELDS = ['category', 'dates', 'presentation', 'venue', 'session', 'venue_type', 'video'];
+async function fetchBib() {
+    if (bibCache) return bibCache;
+    const res = await fetch('publications.bib');
+    bibCache = await res.text();
+    return bibCache;
+}
 
-function renderPublications() {
-    fetch('publications.bib')
-        .then(response => response.text())
-        .then(text => {
-            const entries = parseBibTeX(text);
+async function renderPublications() {
+    try {
+        const text = await fetchBib();
+        const entries = parseBibTeX(text);
 
-            // category フィールドがあるエントリのみ表示対象
-            const displayEntries = entries.filter(e => e.fields.category);
+        // category フィールドがあるエントリのみ表示対象
+        const groups = { book: [], paper: [], international: [], domestic: [] };
+        for (const entry of entries) {
+            const cat = entry.fields.category;
+            if (cat && groups[cat]) groups[cat].push(entry);
+        }
 
-            // カテゴリ別にグループ化
-            const groups = { book: [], paper: [], international: [], domestic: [] };
-            for (const entry of displayEntries) {
-                const cat = entry.fields.category;
-                if (groups[cat]) groups[cat].push(entry);
-            }
+        // 各グループを日付降順ソート
+        for (const cat of Object.keys(groups)) {
+            groups[cat] = sortByDate(groups[cat]);
+        }
 
-            // 各グループを年・月でソート（降順）
-            for (const cat in groups) {
-                groups[cat] = sortEntries(groups[cat]);
-            }
+        // DOM 更新 — 文字列を組み立ててから一括代入
+        populateList('book-list', groups.book, 'count-book', 'book');
+        populateList('paper', groups.paper, 'count-paper', 'paper');
+        populateList('international-list', groups.international, 'count-international', 'international');
+        populateList('domestic-list', groups.domestic, 'count-domestic', 'domestic');
 
-            // 著書
-            const bookContainer = document.getElementById('book').parentElement;
-            if (groups.book.length === 0) {
-                bookContainer.innerHTML = '<li>なし</li>';
-            } else {
-                bookContainer.innerHTML = '';
-                for (const entry of groups.book) {
-                    bookContainer.innerHTML += createEntryHTML(entry, 'book');
-                }
-            }
-            document.getElementById('count-book').textContent = groups.book.length + ' 件';
+        // イベント委譲: コピーボタン
+        const pubSection = document.getElementById('publications');
+        if (pubSection) pubSection.addEventListener('click', handleCopyClick);
 
-            // 論文
-            const paperList = document.getElementById('paper');
-            paperList.innerHTML = '';
-            for (const entry of groups.paper) {
-                paperList.innerHTML += createEntryHTML(entry, 'paper');
-            }
-            document.getElementById('count-paper').textContent = groups.paper.length + ' 件';
+    } catch (err) {
+        console.error('Failed to load publications.bib:', err);
+    }
+}
 
-            // 国際学会
-            const intlList = document.getElementById('international-list');
-            intlList.innerHTML = '';
-            for (const entry of groups.international) {
-                intlList.innerHTML += createEntryHTML(entry, 'international');
-            }
-            document.getElementById('count-international').textContent = groups.international.length + ' 件';
+/**
+ * リスト要素に HTML を一括設定する．
+ */
+function populateList(listId, entries, countId, category) {
+    const list = document.getElementById(listId);
+    if (!list) return;
 
-            // 国内学会
-            const domList = document.getElementById('domestic-list');
-            domList.innerHTML = '';
-            for (const entry of groups.domestic) {
-                domList.innerHTML += createEntryHTML(entry, 'domestic');
-            }
-            document.getElementById('count-domestic').textContent = groups.domestic.length + ' 件';
-        })
-        .catch(err => {
-            console.error('Failed to load publications.bib:', err);
-        });
+    const countEl = document.getElementById(countId);
+    if (countEl) countEl.textContent = `${entries.length} 件`;
+
+    if (entries.length === 0) {
+        list.innerHTML = '<li>なし</li>';
+        return;
+    }
+
+    list.innerHTML = entries.map(e => createEntryHTML(e, category)).join('');
 }
 
 // ============================================================================
-// BibTeXコピー（カスタムフィールドを除去してコピー）
+// BibTeX Copy (event delegation)
 // ============================================================================
 
-function copyBibtexFromBibFile(key) {
-    fetch('publications.bib')
-        .then(response => response.text())
-        .then(text => {
-            const entries = text.split(/(?=@\w+\{)/);
-            const match = entries.find(entry => entry.includes(`{${key},`));
+function handleCopyClick(e) {
+    const img = e.target.closest('[data-bib-key]');
+    if (!img) return;
+    copyBibtexFromBibFile(img.dataset.bibKey);
+}
 
-            if (match) {
-                let cleaned = match.trim();
-                for (const field of CUSTOM_FIELDS) {
-                    cleaned = cleaned.replace(
-                        new RegExp(`^\\s*${field}\\s*=\\s*\\{[^}]*\\},?\\s*\\n`, 'gm'),
-                        ''
-                    );
-                }
-                cleaned = cleaned.replace(/\n{3,}/g, '\n');
+async function copyBibtexFromBibFile(key) {
+    try {
+        const text = await fetchBib();
+        const entries = text.split(/(?=@\w+\{)/);
+        const match = entries.find(entry => entry.includes(`{${key},`));
 
-                navigator.clipboard.writeText(cleaned.trim()).then(() => {
-                    alert("BibTeX copied to clipboard!");
-                });
-            } else {
-                alert("BibTeX entry not found for: " + key);
-            }
-        })
-        .catch(err => {
-            alert("Failed to load publications.bib: " + err);
-        });
+        if (!match) {
+            console.warn('BibTeX entry not found:', key);
+            return;
+        }
+
+        let cleaned = match.trim();
+        for (const field of CUSTOM_FIELDS) {
+            cleaned = cleaned.replace(
+                new RegExp(`^\\s*${field}\\s*=\\s*\\{[^}]*\\},?\\s*\\n`, 'gm'), '',
+            );
+        }
+        cleaned = cleaned.replace(/\n{3,}/g, '\n');
+
+        await navigator.clipboard.writeText(cleaned.trim());
+        showCopyToast();
+    } catch (err) {
+        console.error('Failed to copy BibTeX:', err);
+    }
 }
 
 // ============================================================================
-// 初期化
+// Toast Notification (CSS-class based)
 // ============================================================================
 
-document.addEventListener("DOMContentLoaded", function () {
-    // メールアドレスの設定（スパム対策）
-    var user = "uta.kawakami";
-    var domain = "uec.ac.jp";
-    var email = user + "@" + domain;
-    var emailElement = document.getElementById("email");
-    emailElement.innerHTML = '<a href="mailto:' + email + '">' + email + '</a>';
+let toastTimer = null;
 
-    // BibTeXから研究業績を読み込み・表示
-    renderPublications();
+function showCopyToast() {
+    let toast = document.getElementById('copy-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'copy-toast';
+        toast.className = 'copy-toast';
+        toast.textContent = '✓ BibTeX copied!';
+        document.body.appendChild(toast);
+    }
 
-    // GitHub APIから最終コミット日を取得して表示
-    fetchLastCommitDate();
-});
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+}
 
 // ============================================================================
-// 最終更新日（GitHub API）
+// Last Updated (GitHub API)
 // ============================================================================
 
-function fetchLastCommitDate() {
-    const repo = 'k-uta/k-uta.github.io';
-    fetch(`https://api.github.com/repos/${repo}/commits?per_page=1`)
-        .then(response => response.json())
-        .then(data => {
-            if (data && data.length > 0) {
-                const date = new Date(data[0].commit.committer.date);
-                const formatted = date.getFullYear() + '/' +
-                    String(date.getMonth() + 1).padStart(2, '0') + '/' +
-                    String(date.getDate()).padStart(2, '0');
-                const el = document.getElementById('last-updated');
-                if (el) el.textContent = 'Last Updated: ' + formatted;
-            }
-        })
-        .catch(err => {
-            console.error('Failed to fetch last commit date:', err);
-        });
+async function fetchLastCommitDate() {
+    try {
+        const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/commits?per_page=1`);
+        const data = await res.json();
+
+        if (!Array.isArray(data) || data.length === 0) return;
+
+        const date = new Date(data[0].commit.committer.date);
+        const formatted = [
+            date.getFullYear(),
+            String(date.getMonth() + 1).padStart(2, '0'),
+            String(date.getDate()).padStart(2, '0'),
+        ].join('/');
+
+        const el = document.getElementById('last-updated');
+        if (el) el.textContent = `Last Updated: ${formatted}`;
+    } catch (err) {
+        console.error('Failed to fetch last commit date:', err);
+    }
 }

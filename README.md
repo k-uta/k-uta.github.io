@@ -2,7 +2,7 @@
 
 ## 📝 概要 / Overview
 
-このリポジトリは、[河上 響 (Uta Kawakami)](https://k-uta.github.io/)の個人WebサイトをホストするためのGitHub Pagesプロジェクトです。研究成果、学歴、所属、受賞歴、委員歴などを掲載したポートフォリオサイトとして機能します。
+このリポジトリは，[河上 響 (Uta Kawakami)](https://k-uta.github.io/)の個人WebサイトをホストするためのGitHub Pagesプロジェクトです．研究成果，学歴，所属，受賞歴，委員歴などを掲載したポートフォリオサイトとして機能します．
 
 This repository hosts the personal website of [Uta Kawakami](https://k-uta.github.io/) via GitHub Pages. The site serves as a portfolio highlighting academic background, publications, affiliations, honors, and committee memberships.
 
