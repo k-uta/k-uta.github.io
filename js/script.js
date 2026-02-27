@@ -386,4 +386,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // BibTeXから研究業績を読み込み・表示
     renderPublications();
+
+    // GitHub APIから最終コミット日を取得して表示
+    fetchLastCommitDate();
 });
+
+// ============================================================================
+// 最終更新日（GitHub API）
+// ============================================================================
+
+function fetchLastCommitDate() {
+    const repo = 'k-uta/k-uta.github.io';
+    fetch(`https://api.github.com/repos/${repo}/commits?per_page=1`)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                const date = new Date(data[0].commit.committer.date);
+                const formatted = date.getFullYear() + '/' +
+                    String(date.getMonth() + 1).padStart(2, '0') + '/' +
+                    String(date.getDate()).padStart(2, '0');
+                const el = document.getElementById('last-updated');
+                if (el) el.textContent = 'Last Updated: ' + formatted;
+            }
+        })
+        .catch(err => {
+            console.error('Failed to fetch last commit date:', err);
+        });
+}
