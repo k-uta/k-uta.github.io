@@ -2,7 +2,7 @@
  * @file    script.js
  * @auther  Uta Kawakami
  * @date    13. Oct. 2024
- * Copyright (c) 2024 Uta KAWAKAMI. All rights reserved.
+ * Copyright (c) 2024-2026 Uta KAWAKAMI. All rights reserved.
  ******************************************************************************/
 
 // ページのトップにスクロールする関数
