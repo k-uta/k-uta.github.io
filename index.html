@@ -121,7 +121,8 @@
                     <div class="detail-card">
                         <h3><i class="fas fa-graduation-cap"></i> Education</h3>
                         <ul>
-                            <li>電気通信大学大学院 情報理工学研究科 機械知能システム学専攻 計測・制御システムプログラム 博士前期課程 修了 <span class="badge">Mar.
+                            <li id="edu-master-2026">電気通信大学大学院 情報理工学研究科 機械知能システム学専攻 計測・制御システムプログラム 博士前期課程 修了 <span
+                                    class="badge">Mar.
                                     2026</span></li>
                             <li>電気通信大学 情報理工学域Ⅱ類 計測・制御システムプログラム 卒業 <span class="badge">Mar. 2024</span></li>
                             <li>香川高等専門学校 電子システム工学科 卒業 <span class="badge">Mar. 2022</span></li>
@@ -135,23 +136,23 @@
         <section id="news" class="section fade-in">
             <h2 class="section-title"><i class="fas fa-newspaper"></i> News</h2>
             <div class="news-list">
-                <div class="news-item">
+                <div class="news-item" data-target="#edu-master-2026" role="button" tabindex="0">
                     <span class="news-date">2026.03</span>
                     <span class="news-body">電気通信大学大学院 情報理工学研究科 博士前期課程を修了しました．</span>
                 </div>
-                <div class="news-item">
+                <div class="news-item" data-target="#comp-core" role="button" tabindex="0">
                     <span class="news-date">2026.03</span>
                     <span class="news-body">CoRE（The Championship of Robotics Engineers）に出場しました．</span>
                 </div>
-                <div class="news-item">
+                <div class="news-item" data-target="#publications-domestic" role="button" tabindex="0">
                     <span class="news-date">2026.03</span>
                     <span class="news-body">MSCS2026（計測自動制御学会 制御部門マルチシンポジウム）にて口頭発表しました．</span>
                 </div>
-                <div class="news-item">
+                <div class="news-item" data-target="#publications-domestic" role="button" tabindex="0">
                     <span class="news-date">2025.12</span>
                     <span class="news-body">SI2025（計測自動制御学会 システムインテグレーション部門講演会）にて口頭発表しました．</span>
                 </div>
-                <div class="news-item">
+                <div class="news-item" data-target="#publications-domestic" role="button" tabindex="0">
                     <span class="news-date">2025.11</span>
                     <span class="news-body">第68回自動制御連合講演会にて口頭発表しました．</span>
                 </div>
@@ -192,7 +193,7 @@
                         id="count-international">0</span></h3>
                 <ul id="international-list"></ul>
             </div>
-            <div class="pub-category">
+            <div class="pub-category" id="publications-domestic">
                 <h3><i class="fas fa-map-pin"></i> 国内学会発表 / Domestic Conference <span class="pub-count"
                         id="count-domestic">0</span></h3>
                 <ul id="domestic-list"></ul>
@@ -262,7 +263,7 @@
         <section id="competitions" class="section fade-in">
             <h2 class="section-title"><i class="fas fa-robot"></i> Competitions</h2>
             <div class="competitions-grid">
-                <div class="comp-card">
+                <div class="comp-card" id="comp-core">
                     <h3>The Championship of Robotics Engineers</h3>
                     <p class="comp-team"><i class="fas fa-users"></i> こんてにゅ～, 2026</p>
                     <p class="comp-role"><i class="fas fa-wrench"></i> 調達 / 制御</p>

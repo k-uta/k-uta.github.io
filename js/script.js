@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Setup ---
     initNavigation();
     initSmoothScroll();
+    initNewsAnchors();
     initScrollObserver();
     initBackToTop();
     initEmail();
@@ -115,6 +116,36 @@ function initSmoothScroll() {
             }
         });
     });
+}
+
+// ============================================================================
+// News → Related Section Jump
+// ============================================================================
+
+function initNewsAnchors() {
+    document.querySelectorAll('.news-item[data-target]').forEach(item => {
+        const selector = item.dataset.target;
+        if (!selector) return;
+
+        const handleJump = () => scrollToRelated(selector);
+
+        item.addEventListener('click', handleJump);
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleJump();
+            }
+        });
+    });
+}
+
+function scrollToRelated(selector) {
+    const target = document.querySelector(selector);
+    if (!target) return;
+
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.classList.add('target-highlight');
+    setTimeout(() => target.classList.remove('target-highlight'), 1600);
 }
 
 // ============================================================================
