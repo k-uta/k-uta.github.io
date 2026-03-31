@@ -188,7 +188,7 @@ function initEmail() {
     if (!el) return;
 
     const user = 'uta.kawakami';
-    const domain = 'uec.ac.jp';
+    const domain = 'misc.mech.eng.osaka-u.ac.jp';
     const addr = `${user}@${domain}`;
     el.innerHTML = `<a href="mailto:${addr}"><i class="fas fa-envelope"></i> ${addr}</a>`;
 }
